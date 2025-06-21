@@ -1,0 +1,11 @@
+# GUI框架
+tkinter  # Python标准库，通常已包含
+
+# 图像处理核心库
+opencv-python==4.8.1.78
+numpy==1.24.3
+Pillow==10.0.0
+
+# 可选：如果需要更多图像处理功能
+scikit-image==0.21.0
+matplotlib==3.7.2

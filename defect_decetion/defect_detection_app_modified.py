@@ -1213,23 +1213,17 @@ if __name__ == "__main__":
         print(
             "   python defect_detection_app_modified.py --model model.pth --input images_folder/ --output results.json")
         print()
-        print("4. 带原始3分类概率的预测（仅命令行）:")
-        print("   python defect_detection_app_modified.py --model model.pth --input image.jpg --show-3class")
-        print()
-        print("5. 模型转换（3分类->2分类）:")
-        print("   from defect_detection_app_modified import convert_3class_to_2class_model")
-        print("   convert_3class_to_2class_model('model_3class.pth', 'model_2class.pth')")
+
         print()
         print("参数说明:")
         print("  --model, -m     : 模型文件路径 (必需)")
         print("  --input, -i     : 输入图像或文件夹路径")
         print("  --output, -o    : 输出结果文件路径")
-        print("  --enhance, -e   : 缺陷增强类型 (scratch/stain/none，移除oil)")
         print("  --gui, -g       : 启动GUI界面")
         print("  --attention, -a : 生成注意力图")
         print("  --visualize, -v : 可视化预测结果")
         print("  --device, -d    : 指定设备 (cpu/cuda)")
-        print("  --show-3class   : 显示原始3分类概率（仅在命令行模式下可用）")
+
         print()
         print("🔧 工具函数:")
         print("  - quick_predict(): 快速预测单张图像")
@@ -1238,7 +1232,7 @@ if __name__ == "__main__":
         print()
         print("🎯 GUI界面特点:")
         print("  - 简洁的2分类结果显示（仅显示划痕和斑点概率）")
-        print("  - 移除了原始3分类概率显示选项")
+
         print("  - 保留注意力图显示功能")
         print("  - 支持缺陷增强处理")
     else:
