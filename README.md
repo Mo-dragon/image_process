@@ -133,3 +133,7 @@ python defect_detection_app_modified.py --model model.pth --input image.jpg
 python defect_detection_app_modified.py --model model.pth --input images_folder/ --output results.json
 
 ```
+
+4.3数据集
+
+本实验所用数据集引用自https://github.com/jianzhang96/MSD
