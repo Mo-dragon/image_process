@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-图像处理工具箱GUI界面（大字体版本）
+图像处理工具箱GUI界面
 基于Tkinter开发的本地图形用户界面
 """
 
@@ -22,7 +22,7 @@ class ImageProcessorGUI:
     def __init__(self, root):
         self.root = root
         self.root.title("图像处理工具箱 v2.0")
-        self.root.geometry("1400x900")  # 增大窗口尺寸以适应大字体
+        self.root.geometry("1200x800")
         self.root.configure(bg='#f0f0f0')
 
         # 设置窗口图标和样式
@@ -41,36 +41,24 @@ class ImageProcessorGUI:
         self.bind_events()
 
     def setup_styles(self):
-        """设置界面样式（大字体版本）"""
+        """设置界面样式"""
         style = ttk.Style()
         style.theme_use('clam')
 
-        # 配置大字体样式
-        style.configure('Title.TLabel', font=('Arial', 20, 'bold'), foreground='#2c3e50')
-        style.configure('Subtitle.TLabel', font=('Arial', 18, 'bold'), foreground='#34495e')
-        style.configure('Info.TLabel', font=('Arial', 16), foreground='#7f8c8d')
-        style.configure('Process.TButton', font=('Arial', 16, 'bold'), padding=(15, 8))
-
-        # 配置其他控件的字体
-        style.configure('TButton', font=('Arial', 12), padding=(10, 6))
-        style.configure('TLabel', font=('Arial', 12))
-        style.configure('TLabelframe.Label', font=('Arial', 13, 'bold'))
-        style.configure('TRadiobutton', font=('Arial', 20))
-        style.configure('TCheckbutton', font=('Arial', 11))
-        style.configure('TSpinbox', font=('Arial', 11))
-        style.configure('TCombobox', font=('Arial', 11))
+        # 配置样式
+        style.configure('Title.TLabel', font=('Arial', 16, 'bold'), foreground='#2c3e50')
+        style.configure('Subtitle.TLabel', font=('Arial', 12, 'bold'), foreground='#34495e')
+        style.configure('Info.TLabel', font=('Arial', 10), foreground='#7f8c8d')
+        style.configure('Process.TButton', font=('Arial', 11, 'bold'))
 
         # 设置主题颜色
         style.configure('TNotebook', background='#ecf0f1')
-        style.configure('TNotebook.Tab', padding=[25, 12], font=('Arial', 12, 'bold'))
-
-        # 配置进度条样式
-        style.configure('TProgressbar', thickness=25)
+        style.configure('TNotebook.Tab', padding=[20, 10])
 
     def create_widgets(self):
         """创建界面组件"""
         # 主框架
-        main_frame = ttk.Frame(self.root, padding="15")
+        main_frame = ttk.Frame(self.root, padding="10")
         main_frame.grid(row=0, column=0, sticky=(tk.W, tk.E, tk.N, tk.S))
 
         # 配置网格权重
@@ -81,7 +69,7 @@ class ImageProcessorGUI:
 
         # 标题
         title_label = ttk.Label(main_frame, text="图像处理工具箱", style='Title.TLabel')
-        title_label.grid(row=0, column=0, columnspan=2, pady=(0, 25))
+        title_label.grid(row=0, column=0, columnspan=2, pady=(0, 20))
 
         # 左侧控制面板
         self.create_control_panel(main_frame)
@@ -94,25 +82,24 @@ class ImageProcessorGUI:
 
     def create_control_panel(self, parent):
         """创建左侧控制面板"""
-        control_frame = ttk.Frame(parent, padding="15")
-        control_frame.grid(row=1, column=0, sticky=(tk.W, tk.E, tk.N, tk.S), padx=(0, 15))
+        control_frame = ttk.Frame(parent, padding="10")
+        control_frame.grid(row=1, column=0, sticky=(tk.W, tk.E, tk.N, tk.S), padx=(0, 10))
         control_frame.columnconfigure(0, weight=1)
 
         # 文件选择区域
-        file_frame = ttk.LabelFrame(control_frame, text="文件操作", padding="15")
-        file_frame.grid(row=0, column=0, sticky=(tk.W, tk.E), pady=(0, 15))
+        file_frame = ttk.LabelFrame(control_frame, text="文件操作", padding="10")
+        file_frame.grid(row=0, column=0, sticky=(tk.W, tk.E), pady=(0, 10))
         file_frame.columnconfigure(1, weight=1)
 
-        select_btn = ttk.Button(file_frame, text="选择图像", command=self.select_image)
-        select_btn.grid(row=0, column=0, padx=(0, 15))
+        ttk.Button(file_frame, text="选择图像", command=self.select_image).grid(row=0, column=0, padx=(0, 10))
 
         self.file_path_var = tk.StringVar(value="未选择文件")
         file_label = ttk.Label(file_frame, textvariable=self.file_path_var, style='Info.TLabel')
         file_label.grid(row=0, column=1, sticky=(tk.W, tk.E))
 
         # 处理方法选择
-        method_frame = ttk.LabelFrame(control_frame, text="处理方法", padding="15")
-        method_frame.grid(row=1, column=0, sticky=(tk.W, tk.E), pady=(0, 15))
+        method_frame = ttk.LabelFrame(control_frame, text="处理方法", padding="10")
+        method_frame.grid(row=1, column=0, sticky=(tk.W, tk.E), pady=(0, 10))
         method_frame.columnconfigure(0, weight=1)
 
         # 创建选项卡
@@ -133,138 +120,137 @@ class ImageProcessorGUI:
 
         # 处理按钮
         button_frame = ttk.Frame(control_frame)
-        button_frame.grid(row=2, column=0, sticky=(tk.W, tk.E), pady=(15, 0))
+        button_frame.grid(row=2, column=0, sticky=(tk.W, tk.E), pady=(10, 0))
         button_frame.columnconfigure(0, weight=1)
         button_frame.columnconfigure(1, weight=1)
 
         self.process_button = ttk.Button(button_frame, text="开始处理",
                                          command=self.start_processing, style='Process.TButton')
-        self.process_button.grid(row=0, column=0, padx=(0, 8), sticky=(tk.W, tk.E))
+        self.process_button.grid(row=0, column=0, padx=(0, 5), sticky=(tk.W, tk.E))
 
         self.save_button = ttk.Button(button_frame, text="保存结果",
                                       command=self.save_result, state='disabled')
-        self.save_button.grid(row=0, column=1, padx=(8, 0), sticky=(tk.W, tk.E))
+        self.save_button.grid(row=0, column=1, padx=(5, 0), sticky=(tk.W, tk.E))
 
         # 进度条
         self.progress_var = tk.DoubleVar()
         self.progress_bar = ttk.Progressbar(control_frame, variable=self.progress_var,
                                             mode='determinate')
-        self.progress_bar.grid(row=3, column=0, sticky=(tk.W, tk.E), pady=(15, 0))
+        self.progress_bar.grid(row=3, column=0, sticky=(tk.W, tk.E), pady=(10, 0))
 
     def create_filter_tab(self):
         """创建滤波器选项卡"""
-        filter_frame = ttk.Frame(self.notebook, padding="15")
+        filter_frame = ttk.Frame(self.notebook, padding="10")
         self.notebook.add(filter_frame, text="滤波器")
 
         # 滤波器类型选择
         self.filter_type = tk.StringVar(value="lowpass")
 
         ttk.Radiobutton(filter_frame, text="理想低通滤波", variable=self.filter_type,
-                        value="lowpass").grid(row=0, column=0, sticky=tk.W, pady=4)
+                        value="lowpass").grid(row=0, column=0, sticky=tk.W, pady=2)
         ttk.Radiobutton(filter_frame, text="理想高通滤波", variable=self.filter_type,
-                        value="highpass").grid(row=1, column=0, sticky=tk.W, pady=4)
+                        value="highpass").grid(row=1, column=0, sticky=tk.W, pady=2)
         ttk.Radiobutton(filter_frame, text="中值滤波", variable=self.filter_type,
-                        value="median").grid(row=2, column=0, sticky=tk.W, pady=4)
+                        value="median").grid(row=2, column=0, sticky=tk.W, pady=2)
         ttk.Radiobutton(filter_frame, text="带通滤波", variable=self.filter_type,
-                        value="bandpass").grid(row=3, column=0, sticky=tk.W, pady=4)
+                        value="bandpass").grid(row=3, column=0, sticky=tk.W, pady=2)
 
         # 参数设置
-        params_frame = ttk.LabelFrame(filter_frame, text="参数设置", padding="10")
-        params_frame.grid(row=4, column=0, sticky=(tk.W, tk.E), pady=(15, 0))
+        params_frame = ttk.LabelFrame(filter_frame, text="参数设置", padding="5")
+        params_frame.grid(row=4, column=0, sticky=(tk.W, tk.E), pady=(10, 0))
         params_frame.columnconfigure(1, weight=1)
 
         # 截止频率
-        ttk.Label(params_frame, text="截止频率:").grid(row=0, column=0, sticky=tk.W, pady=4)
+        ttk.Label(params_frame, text="截止频率:").grid(row=0, column=0, sticky=tk.W, pady=2)
         self.cutoff_var = tk.IntVar(value=20)
-        cutoff_spin = ttk.Spinbox(params_frame, from_=1, to=100, textvariable=self.cutoff_var, width=12)
-        cutoff_spin.grid(row=0, column=1, sticky=(tk.W, tk.E), pady=4, padx=(15, 0))
+        cutoff_spin = ttk.Spinbox(params_frame, from_=1, to=100, textvariable=self.cutoff_var, width=10)
+        cutoff_spin.grid(row=0, column=1, sticky=(tk.W, tk.E), pady=2, padx=(10, 0))
 
         # 带通滤波参数
-        ttk.Label(params_frame, text="最小值:").grid(row=1, column=0, sticky=tk.W, pady=4)
+        ttk.Label(params_frame, text="最小值:").grid(row=1, column=0, sticky=tk.W, pady=2)
         self.min_value_var = tk.IntVar(value=100)
-        min_spin = ttk.Spinbox(params_frame, from_=0, to=255, textvariable=self.min_value_var, width=12)
-        min_spin.grid(row=1, column=1, sticky=(tk.W, tk.E), pady=4, padx=(15, 0))
+        min_spin = ttk.Spinbox(params_frame, from_=0, to=255, textvariable=self.min_value_var, width=10)
+        min_spin.grid(row=1, column=1, sticky=(tk.W, tk.E), pady=2, padx=(10, 0))
 
-        ttk.Label(params_frame, text="最大值:").grid(row=2, column=0, sticky=tk.W, pady=4)
+        ttk.Label(params_frame, text="最大值:").grid(row=2, column=0, sticky=tk.W, pady=2)
         self.max_value_var = tk.IntVar(value=200)
-        max_spin = ttk.Spinbox(params_frame, from_=0, to=255, textvariable=self.max_value_var, width=12)
-        max_spin.grid(row=2, column=1, sticky=(tk.W, tk.E), pady=4, padx=(15, 0))
+        max_spin = ttk.Spinbox(params_frame, from_=0, to=255, textvariable=self.max_value_var, width=10)
+        max_spin.grid(row=2, column=1, sticky=(tk.W, tk.E), pady=2, padx=(10, 0))
 
     def create_morphology_tab(self):
         """创建形态学操作选项卡"""
-        morph_frame = ttk.Frame(self.notebook, padding="15")
+        morph_frame = ttk.Frame(self.notebook, padding="10")
         self.notebook.add(morph_frame, text="形态学")
 
         # 形态学操作类型选择
         self.morph_type = tk.StringVar(value="opening")
 
         ttk.Radiobutton(morph_frame, text="开运算", variable=self.morph_type,
-                        value="opening").grid(row=0, column=0, sticky=tk.W, pady=4)
+                        value="opening").grid(row=0, column=0, sticky=tk.W, pady=2)
         ttk.Radiobutton(morph_frame, text="闭运算", variable=self.morph_type,
-                        value="closing").grid(row=1, column=0, sticky=tk.W, pady=4)
+                        value="closing").grid(row=1, column=0, sticky=tk.W, pady=2)
         ttk.Radiobutton(morph_frame, text="膨胀", variable=self.morph_type,
-                        value="dilation").grid(row=2, column=0, sticky=tk.W, pady=4)
+                        value="dilation").grid(row=2, column=0, sticky=tk.W, pady=2)
         ttk.Radiobutton(morph_frame, text="腐蚀", variable=self.morph_type,
-                        value="erosion").grid(row=3, column=0, sticky=tk.W, pady=4)
+                        value="erosion").grid(row=3, column=0, sticky=tk.W, pady=2)
 
         # 结构元素参数
-        kernel_frame = ttk.LabelFrame(morph_frame, text="结构元素", padding="10")
-        kernel_frame.grid(row=4, column=0, sticky=(tk.W, tk.E), pady=(15, 0))
+        kernel_frame = ttk.LabelFrame(morph_frame, text="结构元素", padding="5")
+        kernel_frame.grid(row=4, column=0, sticky=(tk.W, tk.E), pady=(10, 0))
         kernel_frame.columnconfigure(1, weight=1)
         kernel_frame.columnconfigure(3, weight=1)
 
-        ttk.Label(kernel_frame, text="宽度:").grid(row=0, column=0, sticky=tk.W, pady=4)
+        ttk.Label(kernel_frame, text="宽度:").grid(row=0, column=0, sticky=tk.W, pady=2)
         self.kernel_width_var = tk.IntVar(value=5)
-        width_spin = ttk.Spinbox(kernel_frame, from_=3, to=21, textvariable=self.kernel_width_var, width=10)
-        width_spin.grid(row=0, column=1, sticky=(tk.W, tk.E), pady=4, padx=(8, 15))
+        width_spin = ttk.Spinbox(kernel_frame, from_=3, to=21, textvariable=self.kernel_width_var, width=8)
+        width_spin.grid(row=0, column=1, sticky=(tk.W, tk.E), pady=2, padx=(5, 10))
 
-        ttk.Label(kernel_frame, text="高度:").grid(row=0, column=2, sticky=tk.W, pady=4)
+        ttk.Label(kernel_frame, text="高度:").grid(row=0, column=2, sticky=tk.W, pady=2)
         self.kernel_height_var = tk.IntVar(value=5)
-        height_spin = ttk.Spinbox(kernel_frame, from_=3, to=21, textvariable=self.kernel_height_var, width=10)
-        height_spin.grid(row=0, column=3, sticky=(tk.W, tk.E), pady=4, padx=(8, 0))
+        height_spin = ttk.Spinbox(kernel_frame, from_=3, to=21, textvariable=self.kernel_height_var, width=8)
+        height_spin.grid(row=0, column=3, sticky=(tk.W, tk.E), pady=2, padx=(5, 0))
 
     def create_enhancement_tab(self):
         """创建增强处理选项卡"""
-        enhance_frame = ttk.Frame(self.notebook, padding="15")
+        enhance_frame = ttk.Frame(self.notebook, padding="10")
         self.notebook.add(enhance_frame, text="增强处理")
 
         # 增强处理类型选择
         self.enhance_type = tk.StringVar(value="hist")
 
         ttk.Radiobutton(enhance_frame, text="直方图均衡化", variable=self.enhance_type,
-                        value="hist").grid(row=0, column=0, sticky=tk.W, pady=4)
+                        value="hist").grid(row=0, column=0, sticky=tk.W, pady=2)
         ttk.Radiobutton(enhance_frame, text="边缘检测与增强", variable=self.enhance_type,
-                        value="edge").grid(row=1, column=0, sticky=tk.W, pady=4)
+                        value="edge").grid(row=1, column=0, sticky=tk.W, pady=2)
         ttk.Radiobutton(enhance_frame, text="对数变换", variable=self.enhance_type,
-                        value="log").grid(row=2, column=0, sticky=tk.W, pady=4)
+                        value="log").grid(row=2, column=0, sticky=tk.W, pady=2)
         ttk.Radiobutton(enhance_frame, text="线条检测", variable=self.enhance_type,
-                        value="line").grid(row=3, column=0, sticky=tk.W, pady=4)
+                        value="line").grid(row=3, column=0, sticky=tk.W, pady=2)
 
         # 增强参数（可扩展）
-        enhance_params_frame = ttk.LabelFrame(enhance_frame, text="增强参数", padding="10")
-        enhance_params_frame.grid(row=4, column=0, sticky=(tk.W, tk.E), pady=(15, 0))
+        enhance_params_frame = ttk.LabelFrame(enhance_frame, text="增强参数", padding="5")
+        enhance_params_frame.grid(row=4, column=0, sticky=(tk.W, tk.E), pady=(10, 0))
 
         self.enhance_strength_var = tk.DoubleVar(value=1.0)
-        ttk.Label(enhance_params_frame, text="增强强度:").grid(row=0, column=0, sticky=tk.W, pady=4)
+        ttk.Label(enhance_params_frame, text="增强强度:").grid(row=0, column=0, sticky=tk.W, pady=2)
         strength_scale = ttk.Scale(enhance_params_frame, from_=0.1, to=3.0,
-                                   variable=self.enhance_strength_var, orient=tk.HORIZONTAL,
-                                   length=200)
-        strength_scale.grid(row=0, column=1, sticky=(tk.W, tk.E), pady=4, padx=(15, 0))
+                                   variable=self.enhance_strength_var, orient=tk.HORIZONTAL)
+        strength_scale.grid(row=0, column=1, sticky=(tk.W, tk.E), pady=2, padx=(10, 0))
         enhance_params_frame.columnconfigure(1, weight=1)
 
     def create_batch_tab(self):
         """创建批量处理选项卡"""
-        batch_frame = ttk.Frame(self.notebook, padding="15")
+        batch_frame = ttk.Frame(self.notebook, padding="10")
         self.notebook.add(batch_frame, text="批量处理")
 
         # 批量处理选项
         self.batch_all = tk.BooleanVar(value=False)
         ttk.Checkbutton(batch_frame, text="执行所有处理方法",
-                        variable=self.batch_all).grid(row=0, column=0, sticky=tk.W, pady=8)
+                        variable=self.batch_all).grid(row=0, column=0, sticky=tk.W, pady=5)
 
         # 选择特定方法
-        methods_frame = ttk.LabelFrame(batch_frame, text="选择处理方法", padding="10")
-        methods_frame.grid(row=1, column=0, sticky=(tk.W, tk.E), pady=(15, 0))
+        methods_frame = ttk.LabelFrame(batch_frame, text="选择处理方法", padding="5")
+        methods_frame.grid(row=1, column=0, sticky=(tk.W, tk.E), pady=(10, 0))
 
         # 方法复选框
         self.method_vars = {}
@@ -283,30 +269,30 @@ class ImageProcessorGUI:
             var = tk.BooleanVar()
             self.method_vars[key] = var
             ttk.Checkbutton(methods_frame, text=name, variable=var).grid(
-                row=i // 2, column=i % 2, sticky=tk.W, pady=4, padx=(0, 25))
+                row=i // 2, column=i % 2, sticky=tk.W, pady=2, padx=(0, 20))
 
         # 输出目录选择
-        output_frame = ttk.LabelFrame(batch_frame, text="输出设置", padding="10")
-        output_frame.grid(row=2, column=0, sticky=(tk.W, tk.E), pady=(15, 0))
+        output_frame = ttk.LabelFrame(batch_frame, text="输出设置", padding="5")
+        output_frame.grid(row=2, column=0, sticky=(tk.W, tk.E), pady=(10, 0))
         output_frame.columnconfigure(1, weight=1)
 
         ttk.Button(output_frame, text="选择输出目录",
-                   command=self.select_output_dir).grid(row=0, column=0, pady=4)
+                   command=self.select_output_dir).grid(row=0, column=0, pady=2)
 
         self.output_dir_var = tk.StringVar(value="./results")
         ttk.Label(output_frame, textvariable=self.output_dir_var,
-                  style='Info.TLabel').grid(row=0, column=1, sticky=(tk.W, tk.E), padx=(15, 0))
+                  style='Info.TLabel').grid(row=0, column=1, sticky=(tk.W, tk.E), padx=(10, 0))
 
     def create_image_display(self, parent):
         """创建图像显示区域"""
-        image_frame = ttk.Frame(parent, padding="15")
+        image_frame = ttk.Frame(parent, padding="10")
         image_frame.grid(row=1, column=1, sticky=(tk.W, tk.E, tk.N, tk.S))
         image_frame.columnconfigure(0, weight=1)
         image_frame.rowconfigure(1, weight=1)
 
         # 图像显示标题
         display_title = ttk.Label(image_frame, text="图像预览", style='Subtitle.TLabel')
-        display_title.grid(row=0, column=0, pady=(0, 15))
+        display_title.grid(row=0, column=0, pady=(0, 10))
 
         # 图像显示区域（使用Canvas和Scrollbar）
         canvas_frame = ttk.Frame(image_frame)
@@ -328,18 +314,18 @@ class ImageProcessorGUI:
 
         # 图像信息显示
         info_frame = ttk.Frame(image_frame)
-        info_frame.grid(row=2, column=0, sticky=(tk.W, tk.E), pady=(15, 0))
+        info_frame.grid(row=2, column=0, sticky=(tk.W, tk.E), pady=(10, 0))
         info_frame.columnconfigure(1, weight=1)
 
         self.image_info_var = tk.StringVar(value="未加载图像")
         ttk.Label(info_frame, text="图像信息:", style='Info.TLabel').grid(row=0, column=0, sticky=tk.W)
         ttk.Label(info_frame, textvariable=self.image_info_var,
-                  style='Info.TLabel').grid(row=0, column=1, sticky=(tk.W, tk.E), padx=(15, 0))
+                  style='Info.TLabel').grid(row=0, column=1, sticky=(tk.W, tk.E), padx=(10, 0))
 
     def create_status_panel(self, parent):
         """创建状态栏和日志面板"""
-        status_frame = ttk.Frame(parent, padding="15")
-        status_frame.grid(row=2, column=0, columnspan=2, sticky=(tk.W, tk.E), pady=(15, 0))
+        status_frame = ttk.Frame(parent, padding="10")
+        status_frame.grid(row=2, column=0, columnspan=2, sticky=(tk.W, tk.E), pady=(10, 0))
         status_frame.columnconfigure(0, weight=1)
 
         # 状态栏
@@ -348,17 +334,15 @@ class ImageProcessorGUI:
         status_label.grid(row=0, column=0, sticky=tk.W)
 
         # 日志区域
-        log_frame = ttk.LabelFrame(status_frame, text="处理日志", padding="10")
-        log_frame.grid(row=1, column=0, sticky=(tk.W, tk.E), pady=(15, 0))
+        log_frame = ttk.LabelFrame(status_frame, text="处理日志", padding="5")
+        log_frame.grid(row=1, column=0, sticky=(tk.W, tk.E), pady=(10, 0))
         log_frame.columnconfigure(0, weight=1)
 
-        # 设置日志文本框的字体
-        self.log_text = scrolledtext.ScrolledText(log_frame, height=6, width=80, font=('Arial', 11))
+        self.log_text = scrolledtext.ScrolledText(log_frame, height=6, width=80)
         self.log_text.grid(row=0, column=0, sticky=(tk.W, tk.E))
 
         # 清除日志按钮
-        clear_btn = ttk.Button(log_frame, text="清除日志", command=self.clear_log)
-        clear_btn.grid(row=1, column=0, pady=(8, 0))
+        ttk.Button(log_frame, text="清除日志", command=self.clear_log).grid(row=1, column=0, pady=(5, 0))
 
     def bind_events(self):
         """绑定事件处理"""
@@ -455,7 +439,7 @@ class ImageProcessorGUI:
 
             if canvas_width <= 1 or canvas_height <= 1:
                 # Canvas还没有初始化尺寸，使用默认值
-                canvas_width, canvas_height = 700, 500
+                canvas_width, canvas_height = 600, 400
 
             # 计算缩放比例
             img_width, img_height = pil_image.size
